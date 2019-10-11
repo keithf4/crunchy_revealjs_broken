@@ -4,8 +4,8 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>So You Want To Make A Crunchy Presentation?</title>
-        <meta name="author" content="Some Hippo">
+        <title>Don't Forget The Elephant</title>
+        <meta name="author" content="Keith Fiske">
 
 		<link rel="stylesheet" href="css/reset.css">
 		<link rel="stylesheet" href="css/reveal.css">
@@ -37,6 +37,25 @@
 		<div class="reveal">
 			<div class="slides">
 
+
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <h2>Don't Forget The Elephant</h2>
+                    <h4>A Review of Modern PostgreSQL</h4>
+                    <p>
+                        Presented by <a href="http://keithf4.com" target="_blank">Keith Fiske</a> / <a href="http://twitter.com/keithf4" target="_blank">@keithf4</a>
+                    </p>
+                    <p>
+                    Senior Database Engineer @ <a href="https://www.crunchydata.com/" target="_blank">Crunchy Data Solutions, Inc</a><br/>
+                        (<a href="https://github.com/keithf4/pg_partman" target="_blank">pg_partman</a>, <a href="https://github.com/omniti-labs/pg_extractor" target="_blank">pg_extractor</a>, <a href="https://github.com/omniti-labs/mimeo" target="_blank">mimeo</a>)
+                    </p>
+                    <p>
+                    <br/>
+                    <br/>
+                    <small>Follow along at <br/><a href="http://slides.keithf4.com/dontforget">http://slides.keithf4.com/dontforget</a></small>
+                    </p>
+                </section>
+
+
 				<section data-background="css/theme/crunchy_white_bg.png">
                     <h2>Crunchy Data Solutions, Inc</h2>
                     <p>
@@ -57,37 +76,1430 @@
                 </section>
 
 
-				<section data-background="css/theme/crunchy_white_bg.png">
-                    <section data-background="css/theme/crunchy_white_bg.png">
-                    <h2>Click down on this slide</h2>
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <h2>What is PostgreSQL?</h2>
                     <p>
+                    <ul>
+                        <li>Open Source RDBMS</a>
+                        <li>Started at UC Berkley 1986, open sourced in 1996</li>
+                        <li>BSD-type License</li>
+                        <li>Follows SQL Standard very closely</li>
+                        <li>Yearly major version releases</li>
                         <ul>
-                            <li>Stuff stuff stuff</li>
+                            <li>Used to use 3 number version before v10 (x.x.x)</li>
+                            <li>Minor (x.x) patch releases quarterly at minimum</li>
+                            <li>Generally patch all supported versions at one time</li>
                         </ul>
-                    </p>
+                        <li>Third-party Plugin Support</li>
+                        <ul>
+                            <li>Procedural Languages</li>
+                            <ul>
+                                <li>C, Java, Python, Perl, JavaScript, PHP, R, Ruby, etc</li>
+                            </ul>
+                            <li>Extensions</li>
+                            <li>Background Workers</li>
+                        </ul>
+                        <li><a href="http://www.postgresql.org/list/" target="_blank">Mailing Lists</a>, <a href="http://www.postgresql.org/community/irc/" target="_blank">IRC</a>, <a href="http://wiki.postgresql.org" target="_blank">Wiki</a>, <a href="http://planet.postgresql.org" target="_blank">planet.postgresql.org</a>, <a href="https://wiki.postgresql.org/wiki/Events" target="_blank">Conferences & User Groups</a></li>
+                    </ul>
+                </section>
+
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <section>
+                        <h2>A Brief History of Releases</h2>
                     </section>
-                    <section data-background="css/theme/crunchy_white_bg.png">
-                    <h2>Click down on this slide</h2>
-                    <p>
-                        <ul>
-                            <li>Stuff stuff stuff</li>
-                        </ul>
-                    </p>
+                    <section>
+                        <table width="100%">
+                            <tr>
+                                <th>Version</th>
+                                <th>Released</th>
+                                <th>Final Version</th>
+                                <th>EOL</th>
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL 6.3</td>
+                                <td>March 1998</td>
+                                <td>6.3.2</td>
+                                <td>March 2003</td>
+                            </tr>
+                           <tr>
+                                <td>PostgreSQL 6.4</td>
+                                <td>Oct 1998</td>
+                                <td>6.4.2</td>
+                                <td>Oct 2003</td>
+                            </tr>
+                           <tr>
+                                <td>PostgreSQL 6.5</td>
+                                <td>June 1999</td>
+                                <td>6.5.3</td>
+                                <td>June 2004</td>
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL 7.0</td>
+                                <td>May 2000</td>
+                                <td>7.0.3</td>
+                                <td>May 2005</td>
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL 7.1</td>
+                                <td>Apr 2001</td>
+                                <td>7.1.3</td>
+                                <td>Apr 2006</td>
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL 7.2</td>
+                                <td>Feb 2002</td>
+                                <td>7.2.8</td>
+                                <td>Feb 2007</td>
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL 7.3</td>
+                                <td>Nov 2002</td>
+                                <td>7.3.21</td>
+                                <td>Nov 2007</td>
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL 7.4</td>
+                                <td>Nov 2003</td>
+                                <td>7.4.30</td>
+                                <td>Oct 2010</td>
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL 8.0</td>
+                                <td>Jan 2005</td>
+                                <td>8.0.26</td>
+                                <td>Oct 2010</td>
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL 8.1</td>
+                                <td>Nov 2005</td>
+                                <td>8.1.23</td>
+                                <td>Oct 2010</td>
+                            </tr>
+
+                            <tr>
+                                <td>PostgreSQL 8.2</td>
+                                <td>Dec 2006</td>
+                                <td>8.2.23</td>
+                                <td>Dec 2011</td>
+                            </tr>
+
+                            <tr>
+                                <td>PostgreSQL 8.3</td>
+                                <td>Feb 2008</td>
+                                <td>8.3.23</td>
+                                <td>Feb 2013</td>
+                            </tr>
+
+                        </table>
                     </section>
-                    <section data-background="css/theme/crunchy_white_bg.png">
-                    <h2>Last slide in subsection</h2>
-                    <p>
-                        <ul>
-                            <li>click right</li>
-                        </ul>
-                    </p>
+                    <section>
+                        <table width="100%">
+                            <tr>
+                                <th>Version</th>
+                                <th>Released</th>
+                                <th>Final/Latest Version</th>
+                                <th>EOL</th>
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL 8.4</td>
+                                <td>July 2008</td>
+                                <td>8.4.22</td>
+                                <td>July 2014</td>
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL 9.0</td>
+                                <td>Sept 2010</td>
+                                <td>9.0.23</td>
+                                <td>Oct 2015</td>
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL 9.1</td>
+                                <td>Sept 2011</td>
+                                <td>9.1.24</td>
+                                <td>Oct 2016</td>
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL 9.2</td>
+                                <td>Sept 2012</td>
+                                <td>9.2.24</td>
+                                <td>Nov 2017</td>
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL 9.3</td>
+                                <td>Sept 2013</td>
+                                <td>9.3.25</td>
+                                <td>Nov 2018</td>
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL 9.4</td>
+                                <td>Dec 2014</td>
+                                <td>9.4.24</td>
+                                <td>Feb 2020</td>
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL 9.5</td>
+                                <td>Jan 2016</td>
+                                <td>9.5.19</td>
+                                <td>Feb 2021</td>
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL 9.6</td>
+                                <td>Sept 2016</td>
+                                <td>9.6.15</td>
+                                <td>Nov 2021</td>
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL 10</td>
+                                <td>Oct 2017</td>
+                                <td>10.10</td>
+                                <td>Nov 2022</td>
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL 11</td>
+                                <td>Oct 2018</td>
+                                <td>11.5</td>
+                                <td>Nov 2023</td>
+                            </tr>
+                            <tr>
+                                <td>PostgreSQL 12</td>
+                                <td>Oct 2019</td>
+                                <td>12.0</td>
+                                <td>Nov 2024</td>
+                            </tr>
+                        </table>
                     </section>
                 </section>
 
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <section>
+                        <h1>8.0 Features</h1>
+                        (Released Jan 2005 - EOL Oct 2010)
+                    </section>
+                    <section>
+                        <ul>
+                            <li>Native Microsoft Windows release</li>
+                            <li>Savepoints</li>
+                            <li>Point-In-Time Recovery (PITR)</li>
+                            <li>Tablespaces</li>
+                            <li>Change column types</li>
+                        </ul>
+                       <aside class="notes">
+                           <ul>
+                               <small>
+                               <li>Savepoints allow specific parts of a transaction to be aborted without affecting the remainder of the transaction. Prior releases had no such capability; there was no way to recover from a statement failure within a transaction except by aborting the whole transaction. This feature is valuable for application writers who require error recovery within a complex transaction.</li>
+                               </small>
+                           </ul>
+                       </aside>
+                    </section>
+                </section> 
+
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <section>
+                        <h1>8.1 Features</h1>
+                        (Released Nov 2005 - EOL Nov 2010)
+                    </section>
+                    <section>
+                        <ul>
+                            <li>Two-phase commit</li>
+                            <li>Role system simplified separate user/group</li>
+                            <li>Greatly improved memory management for increased concurrency performance</li>
+                            <li>Auto-vacuum moved into main server (was contrib module)</li>
+                        </ul>
+                        <aside class="notes">
+                            <ul>
+                                <small>
+                                <li>Two-phase commit allows transactions to be "prepared" on several computers, and once all computers have successfully prepared their transactions (none failed), all transactions can be committed. Even if a machine crashes after a prepare, the prepared transaction can be committed after the machine is restarted. New syntax includes PREPARE TRANSACTION and COMMIT/ROLLBACK PREPARED. A new system view pg_prepared_xacts has also been added.</li>
+                                <li>Access to the shared buffer cache was identified as a significant scalability problem, particularly on multi-CPU systems. In this release, the way that locking is done in the buffer manager has been overhauled to reduce lock contention and improve scalability. The buffer manager has also been changed to use a "clock sweep" replacement policy.</li>
+                            </small>
+                            </ul>
+                        </aside>
+                    </section>
+                </section> 
+
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <section>
+                        <h1>8.2 Features</h1>
+                        (Released Dec 2006 - EOL Dec 2011)
+                    </section>
+                    <section>
+                        <ul>
+                            <li>Concentrated on user requested features for easier administration and better performance</li>
+                            <ul>
+                                <li>INSERT/UPDATE/DELETE ... RETURNING ...</li>
+                                <li>Concurrent index creation</li>
+                                <li>Many query planner improvements</li>
+                                <li>More efficient locking for better concurrency</li>
+                                <li>More efficient vacuuming</li>
+                            </ul>
+                    </section>
+                </section> 
+
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <section>
+                        <h1>8.3 Features</h1>
+                        (Released Feb 2008 - EOL Feb 2013)
+                    </section>
+                    <section>
+                        <ul>
+                            <li>Full text search integrated into core system</li>
+                            <li>ENUM &amp; UUID types</li>
+                            <li>Concurrent autovacuum allowed spawning of multiple vacuum jobs automatically</li>
+                            <li>Updatable cursors</li>
+                        </ul>
+                    </section>
+                </section> 
+
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <section>
+                        <h1>8.4 Features</h1>
+                        Released July 2009 - EOL July 2014<br />
+                        Final Version 8.4.22
+                    </section>
+                    <section>
+                        <h2>Window Functions</h2>
+                        <ul>
+                            <li>Performs a calculation across a set of table rows that are somehow related to the current row</li>
+                            <li>The OVER clause determines exactly how the rows of the query are split up for processing by the window function</li>
+                        </ul>
+                        <pre><code data-trim>
+SELECT salary, sum(salary) OVER () FROM empsalary;
+
+ salary |  sum  
+--------+-------
+   5200 | 47100
+   5000 | 47100
+   3500 | 47100
+   4800 | 47100
+   3900 | 47100
+   4200 | 47100
+   4500 | 47100
+   4800 | 47100
+   6000 | 47100
+   5200 | 47100
+(10 rows)
+
+
+SELECT salary, sum(salary) OVER (ORDER BY salary) FROM empsalary;
+
+ salary |  sum  
+--------+-------
+   3500 |  3500
+   3900 |  7400
+   4200 | 11600
+   4500 | 16100
+   4800 | 25700
+   4800 | 25700
+   5000 | 30700
+   5200 | 41100
+   5200 | 41100
+   6000 | 47100
+(10 rows)
+                        </code></pre>
+                        <aside class="notes">
+                        <small>
+                            <ul>
+                                <li>For each row, there is a set of rows within its partition called its window frame</li>
+                                <li>Many (but not all) window functions act only on the rows of the window frame, rather than of the whole partition. By default, if ORDER BY is supplied then the frame consists of all rows from the start of the partition up through the current row, plus any following rows that are equal to the current row according to the ORDER BY clause.
+                            </ul>
+                        </small>
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Window Functions</h2>
+                        <ul>
+                            <li>The PARTITION BY list within OVER specifies dividing the rows into groups, or partitions, that share the same values of the PARTITION BY expression(s).</li>
+                        </ul>
+                        <pre><code data-trim>
+SELECT depname, empno, salary, avg(salary) 
+OVER (PARTITION BY depname) 
+FROM empsalary;
+
+  depname  | empno | salary |          avg          
+-----------+-------+--------+-----------------------
+ develop   |    11 |   5200 | 5020.0000000000000000
+ develop   |     7 |   4200 | 5020.0000000000000000
+ develop   |     9 |   4500 | 5020.0000000000000000
+ develop   |     8 |   6000 | 5020.0000000000000000
+ develop   |    10 |   5200 | 5020.0000000000000000
+ personnel |     5 |   3500 | 3700.0000000000000000
+ personnel |     2 |   3900 | 3700.0000000000000000
+ sales     |     3 |   4800 | 4866.6666666666666667
+ sales     |     1 |   5000 | 4866.6666666666666667
+ sales     |     4 |   4800 | 4866.6666666666666667
+(10 rows)
+
+
+SELECT depname, empno, salary, rank() 
+OVER (PARTITION BY depname ORDER BY salary DESC) 
+FROM empsalary;
+
+  depname  | empno | salary | rank 
+-----------+-------+--------+------
+ develop   |     8 |   6000 |    1
+ develop   |    10 |   5200 |    2
+ develop   |    11 |   5200 |    2
+ develop   |     9 |   4500 |    4
+ develop   |     7 |   4200 |    5
+ personnel |     2 |   3900 |    1
+ personnel |     5 |   3500 |    2
+ sales     |     1 |   5000 |    1
+ sales     |     4 |   4800 |    2
+ sales     |     3 |   4800 |    2
+(10 rows)
+
+                        </code></pre>
+                        <aside class="notes">
+                        <small>
+                            <ul>
+                                <li> Normally the avg() would be for all rows in the output. The first three output columns come directly from the table empsalary, and there is one output row for each row in the table. The fourth column represents an average taken across all the table rows that have the same depname value as the current row.</li>
+                                <li> The rank function produces a numerical rank within the current row's partition for each distinct ORDER BY value, in the order defined by the ORDER BY clause. rank needs no explicit parameter, because its behavior is entirely determined by the OVER clause.</li>
+                            </ul>
+                        </small>
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Common Table Expression</h2>
+                        <div id="li30">
+                            <ul style="font-size:25px">
+                                <li>WITH provides a way to write auxiliary statements for use in a larger query</li>
+                                <li>These statements, referred to as Common Table Expressions or CTEs, can be thought of as defining temporary tables that exist just for one query</li>
+                                <li>WITH queries are useful because they are evaluated only once per execution of the parent query, even if they are referred to more than once by the parent query or sibling WITH queries.</li>
+                            </ul>
+                        <pre><code data-trim>
+WITH regional_sales AS (
+        SELECT region, SUM(amount) AS total_sales
+        FROM orders
+        GROUP BY region
+     ), top_regions AS (
+        SELECT region
+        FROM regional_sales
+        WHERE total_sales > (SELECT SUM(total_sales)/10 FROM regional_sales)
+     )
+SELECT region,
+       product,
+       SUM(quantity) AS product_units,
+       SUM(amount) AS product_sales
+FROM orders
+WHERE region IN (SELECT region FROM top_regions)
+GROUP BY region, product;
+                        </code></pre>
+                        </div>
+                        <aside class="notes">
+                            <small>
+                                <ul>
+                                    <li>Each auxiliary statement in a WITH clause can be its own SELECT statement</li>
+                                    <li>The WITH clause itself is attached to a primary statement that can also be a SELECT</li>
+                                </ul>
+                            </small>
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Common Table Expressions</h2>
+                            Allow recursive queries
+                        <pre><code data-trim>
+WITH RECURSIVE t(n) AS (
+    VALUES (1)
+  UNION ALL
+    SELECT n+1 FROM t WHERE n < 100
+)
+SELECT sum(n) FROM t;
+
+ sum  
+------
+ 5050
+(1 row)
+
+                        </code></pre>
+                        <aside class="notes">
+                            Like a normal recursive function, there is an initial condition (VALUES(1)) followed by step to perform that refers back to itself. In this case the WHERE condition provides the exit from recursion.
+                        </aside>
+                    </section>
+
+                    <!-- just mentioned in Additional section to save time 
+                    <section>
+                        <h2>Parallel pg_restore</h2>
+                        <ul>
+                            <li>Prior versions, each object was restored serially one after the other</li>
+                            <li>Parallel option tells it to always keep restoring that many objects at all times until complete.</li>
+                            <li>Significantly reduced downtime for major version upgrades</li>
+                        </ul>
+                        <aside class="notes">
+                            <small>
+                            Not just telling it parallel batch sizes. Like multiple assembly lines all running at once. If parallel is set to 10, there are always that many objects being restored. This allows it to keep working on larger tables in the background while smaller tables and all other objects continue to keep restoring and finish.
+                            </small>
+                        </aside>
+                    </section> -->
+
+                    <section>
+                        <h2>Additional 8.4 Features</h2>
+                        <ul>
+                            <!-- has its own slide above if there's time -->
+                            <li>Parallel pg_restore</li> 
+                            <li>Default &amp; variadic parameters for functions</li>
+                            <li>Column permissions</li>
+                            <li>Per-database locale settings</li>
+                            <li>SSL certificate authentication</li>
+                            <li>Automatic sizing of Free Space Map (eliminated significant administrative headache)</li>
+                            <li>Live editing of functions (\ef in psql)</li>
+                            <li>New contrib modules: pg_stat_statements, auto_explain, btree_gin</li>
+                        </ul>
+                    </section>
+                </section> 
+                <!-- end of 8.4 -->
+
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <section>
+                        <h1>9.0 Features</h1>
+                        Released Sept 2010 - EOL Sept 2015<br />
+                        Final Version 9.0.23
+                    </section>
+                    <section>
+                        <h2>Streaming Replication</h2>
+                        <ul>
+                            <li>Prior replication methods required significant setup and relied on third-party tools (commands given to archive_command)</li>
+                            <li>Simpler, TCP-based connection method</li>
+                            <li>Significantly reduced lag time between primary &amp; replica systems (less than 1 second)</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Hot Standby</h2>
+                        <ul>
+                            <li>Allow readonly connections to replica servers</li>
+                            <li>Offset load on primary systems by sending non-write queries to replica(s)</li>
+                            <li>Better security: allow access to data but not to a system that permits writes</li>
+                    </section>
+                    <section>
+                        <h2>pg_upgrade</h2>
+                        <ul>
+                            <li>Previously, all major version (x.x) upgrades required a full dump &amp; restore</li>
+                            <li>Can either copy existing files to new data directory or can use hard links to reuse old files</li>
+                            <li>Link method can allow very quick upgrade of large databases (ex: 1.2TB in &lt; 2min; does not include stats update) </li>
+                            <li>Minimum version to pg_upgrade straight to latest release: 8.4.7</li>
+                            <ul>
+                                <li>Anything older either requires staging through some previous versions or dump &amp; restore (highly recommend D&amp;R)</li>
+                            </ul>
+                    </section>
+                    <section>
+                        <h2>Additional 9.0 Features</h2>
+                        <ul>
+                            <li>Enhanced permissions management</li>
+                            <ul>
+                                <li>Grant to all objects in schema with single command</li>
+                                <li>Alter initial, default privileges of objects created by specific roles</li>
+                            </ul>
+                            <li>Much Better VACUUM FULL</li>
+                            <li>Windows 64-bit support</li>
+                            <li>Anonymous code blocks (DO statement)</li>
+                            <li>Deferrable unique constraints</li>
+                            <li>Enhanced EXPLAIN plans. Export in JSON, XML or YAML</li>
+                        </ul>
+
+                       <aside class="notes">
+                           <ul>
+                               <li>VACUUM FULL now rewrites entire table and indexes rather than moving rows. Avoids index bloat that used to be caused pre-9.0</li>
+                               <li>Deferred unique constraint means allowing a constraint to be checked at the end of a multi-row update instead of checking as each row is inserted</li>
+                           </ul>
+                        </aside>
+
+                    </section>
+                </section>
+                <!-- end of 9.0 -->
+
+
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <section>
+                        <h1>9.1 Features</h1>
+                        Released Sept 2011 - EOL Oct 2016<br />
+                        Final verison 9.1.24
+                    </section>
+                    <section>
+                        <h2>Foreign Data Wrappers</h2>
+                        <ul>
+                            <li>SQL/MED (Management of External Data) part of SQL Standard</li>
+                            <li>Connect to remote databases/filesystems/services as if they were local tables inside PostgreSQL</li>
+                            <li>Oracle, MySQL, SQL Server, SQLite, MongoDB, Redis, CSV Files, Twitter, Blackhole, etc</li>
+                            <li>Joins & conditions pushed to remote system</li>
+                            <li>Still performance issues joining local tables w/ remote</li>
+                            <li>Ease the migration to PostgreSQL from different databases</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Extensions</h2>
+                        <ul>
+                            <li>Package related objects into a managed bundle</li>
+                            <li>Versioned</li>
+                            <ul>
+                                <li>Ensure all systems have the same code</li>
+                                <li>Controlled upgrades & downgrades</li>
+                            </ul>
+                            <li>All contrib modules are now extensions</li>
+                            <li>Examples: <a href="http://postgis.net/" target="_blank">PostGIS</a>, <a href="http://reorg.github.io/pg_repack/" target="_blank">pg_repack</a>, <a href="https://github.com/keithf4/pg_partman" target="_blank">pg_partman</a></li> 
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Writable CTE</h2>
+                        <ul>
+                            <li>WITH statements can now contain INSERT, UPDATE & DELETE</li>
+                            <li>Use RETURNING clause to do fun things</li>
+                        </ul>
+                        <pre><code data-trim>
+WITH moved_rows AS (
+    DELETE FROM products
+    WHERE
+        "date" >= '2010-10-01' AND
+        "date" < '2010-11-01'
+    RETURNING *
+)
+INSERT INTO products_log
+SELECT * FROM moved_rows;
+                        </code></pre>
+                        <aside class="notes">
+                            Rows deleted in WITH statement are returned by RETURNING to be used by the SELECT statement to populate another table that tracks deletes
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Writable CTE</h2>
+                        <ul>
+                            <li>Simplify transactional logic that contains multiple, related insert/update/delete statements</li>
+                            <li>As a side-effect, significantly improves performance!</li>
+                            <pre><code data-trim>
+BEFORE:
+BEGIN;
+INSERT INTO users (name, email) VALUES (?,?) RETURNING userid;
+
+INSERT INTO addresses (userid, address, city, state, zip) 
+VALUES (?,?,?,?,?) RETURNING addressid;
+
+INSERT INTO user_history (userid, addressid, action) VALUES (?,?,?) RETURNING historyid;
+COMMIT;
+
+
+AFTER:
+WITH userdata AS (
+  INSERT INTO users (name, email) VALUES (?,?)
+  RETURNING userid
+), addressdata AS (
+  INSERT INTO addresses (userid, address, city, state, zip)
+  SELECT userid,?,?,?,?
+  FROM userdata
+  RETURNING addressid 
+), historydata AS (
+  INSERT INTO user_history (userid, addressid, action)
+  SELECT userid, addressid,?
+  FROM userdata, addressdata 
+  RETURNING historyid
+)
+SELECT userid, addressid, historyid 
+FROM userdata, addressdata, historydata;
+                            </code></pre>
+                        </ul>
+                        <aside class="notes">
+                            <small><ul>
+                                <li>BEFORE set of queries is even slower if coming from an application. Roundtrip on network for each statement.</li>
+                                <li>Be careful with multiple update statements. If CTE doesn't depend on another running first, postgres doesn't guarentee order of execution. Can lead to deadlocks.</li>
+                            </ul></small>
+                        </aside>
+                    </section>
+                    <section>
+                        <h2>Additional 9.1 Features</h2>
+                        <ul>
+                            <li>Synchronous Replication</li>
+                            <li>True serializable transaction isolation</li>
+                            <li>Unlogged tables</li>
+                        </ul>
+                    </section>
+                </section> 
+                <!-- end of 9.1 -->
+
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <section>
+                        <h1>9.2 Features</h1>
+                        Released Sept 2012 - EOL Nov 2017<br />
+                        Final version 9.2.24
+                    </section>
+                    <section>
+                        <h2>Range Data Type</h2>
+                        <ul>
+                            <li>Data type representing a range of values of some element type (time, id, custom) </li>
+                            <li>Scheduling, probablilty, intersection of ordered data</li>
+                        </ul>
+                        <pre><code data-trim>
+-- includes 3, does not include 7, and does include all points in between
+SELECT '[3,7)'::int4range;
+
+-- does not include either 3 or 7, but includes all points in between
+SELECT '(3,7)'::int4range;
+
+-- includes only the single point 4
+SELECT '[4,4]'::int4range;
+
+-- includes no points (and will be normalized to 'empty')
+SELECT '[4,4)'::int4range;
+
+
+CREATE TABLE reservation (room int, during tsrange);
+INSERT INTO reservation VALUES
+    (1108, '[2010-01-01 14:30, 2010-01-01 15:30)');
+
+
+-- Containment
+SELECT int4range(10, 20) @> 3;
+ ?column? 
+----------
+ f
+
+-- Overlaps
+SELECT numrange(11.1, 22.2) && numrange(20.0, 30.0);
+ ?column? 
+----------
+ t
+
+-- Extract the upper bound
+SELECT upper(int8range(15, 25));
+ upper 
+-------
+    25
+
+-- Compute the intersection
+SELECT int4range(10, 20) * int4range(15, 25);
+ ?column? 
+----------
+ [15,20)
+
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>Range Types</h2>
+                        <ul>
+                            <li>Practical Example: Buying a car in budget (Thank you <a href="https://twitter.com/jkatz05" target ="_blank">Jonathan Katz</a>)</li>
+                            <li>Without range type, table below would have had to have a min_price & max_price column to track its possible range of values</li>
+                        </ul>
+                        <pre><code data-trim>
+
+test=# SELECT * FROM cars ORDER BY lower(cars.price_range);
+ id  | name                | price_range
+-----+---------------------+-----------------
+ 2   | Buick Skylark       | [2000,4001)
+ 3   | Pontiac GTO         | [5000,7501)
+ 4   | Chevrolet Camero    | [10000,12001)
+ 5   | Ford Mustang        | [11000,15001)
+ 6   | Lincoln Continental | [12000,14001)
+ 7   | BMW M3              | [35000,42001)
+ 8   | Audi RS4            | [41000,45001)
+ 9   | Porsche 911         | [47000,58001)
+ 10  | Lamborghini LP700   | [385000,400001)
+
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>Range Type</h2>
+                        <ul>
+                            <li>Budget of $13,000 - $15,000</li>
+                            <li>Find all cars that have any values in that price range</li>
+                            <li>With old min_price / max_price columns, you write fun queries like this:</li>
+                        </ul>
+                        <pre><code data-trim>
+SELECT *
+FROM cars
+WHERE
+    (
+        cars.min_price ≤ 13000 AND
+        cars.min_price ≤ 15000 AND
+        cars.max_price ≥ 13000 AND
+        cars.max_price ≤ 15000
+    ) OR
+    (
+        cars.min_price ≤ 13000 AND
+        cars.min_price ≤ 15000 AND
+        cars.max_price ≥ 13000 AND
+        cars.max_price ≥ 15000
+    ) OR
+    (
+        cars.min_price ≥ 13000 AND
+        cars.min_price ≤ 15000 AND
+        cars.max_price ≥ 13000 AND
+        cars.max_price ≤ 15000
+    ) OR
+    (
+        cars.min_price ≥ 13000 AND
+        cars.min_price ≤ 15000 AND
+        cars.max_price ≥ 13000 AND
+        cars.max_price ≥ 15000
+    )
+ORDER BY cars.min_price;
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>Range Types</h2>
+                        <ul>
+                            <li>Range types & operators make this just slightly easier</li>
+                        </ul>
+                        <pre><code data-trim>
+SELECT *
+FROM cars
+WHERE cars.price_range && int4range(13000, 15000, '[]')
+ORDER BY lower(cars.price_range);
+
+ id | name                | price_range
+----+---------------------+---------------
+ 5  | Ford Mustang        | [11000,15001)
+ 6  | Lincoln Continental | [12000,14001)
+                        </code></pre>
+                    </section>
+                    <section>
+                        <h2>Cascading Replication</h2>
+                        <ul>
+                            <li>Database can be a streaming replica of another replica</li>
+                            <li>Every streaming replica off of a primary causes additional load for reading its WAL stream</li>
+                            <li>Distribute replica load among several systems in large, multi-cluster setups</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Additional 9.2 Features</h2>
+                        <ul>
+                            <li>Index-Only scan</li>
+                            <li>JSON Data Type (limited)</li>
+                        </ul>
+                    </section>
+                </section>
+                <!-- end of 9.2 -->
+
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <section>
+                        <h1>9.3 Features</h1>
+                        Released Sept 2013 - EOL Nov 2018<br />
+                        Current Version 9.3.25
+                    </section>
+                    <section>
+                        <h2>Reduce System V shared memory</h2>
+                        <ol id="li30" style="font-size:30px">
+                            <li>Install OS</li>
+                            <li>Install PostgreSQL package</li>
+                            <li>Do tuning adjustments to fix your shared_buffers (32mb is enough for anyone right?)</li>
+                            <li>Restart to put new settings into place</li>
+                            <li>Uh oh...</li>
+                        </ol>
+                        <pre>
+IpcMemoryCreate: shmget(key=5432001, size=415776768, 03600) failed: Invalid argument 
+
+This error usually means that PostgreSQL's request for a shared memory 
+segment exceeded your kernel's SHMMAX parameter. You can either 
+reduce the request size or reconfigure the kernel with larger SHMMAX. 
+To reduce the request size (currently 415776768 bytes), reduce 
+PostgreSQL's shared_buffers parameter (currently 50000) and/or 
+its max_connections parameter (currently 12).
+                        </pre>
+                        <ul id="li30" style="font-size:30px">
+                            <li>No longer an issue with 9.3</li>
+                            <li><a href="http://rhaas.blogspot.com/2012/06/absurd-shared-memory-limits.html" target="_blank">Blog post by Robert Haas</a> explains the original cause and fix</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Custom Background Worker</h2>
+                        <ul>
+                            <li>PostgreSQL already used distinct background processes for its own inner workings (postmaster, writer, logger, autovacuum, stats collector, etc)
+                            <li>Now able to program your own workers and let PostgreSQL manage them for you</li>
+                            <li>Auto-start & stop along with the database</li>
+                            <li>Use custom configuration options in postgresql.conf</li>
+                            <li>Example: <a href="https://github.com/keithf4/pg_partman" target="_blank">pg_partman</a> has a BGW scheduler so separate cronjob is no longer required for partition maintenance</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Additional 9.3 Features</h2>
+                        <ul>
+                            <li>JSON Operators - Actually useful!</li>
+                            <li>LATERAL queries/joins</li>
+                            <li>Writable Foreign Data Wrappers</li>
+                            <li>An actual PostgreSQL FDW!</li>
+                            <li>Parallel pg_dump</li>
+                            <li>Materialized Views (kind of useless)</li>
+                            <li>Checksum data pages</li>
+                        </ul>
+                    </section>
+                </section>
+                <!-- end of 9.3 -->
+
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <section>
+                        <h1>9.4 Features</h1>
+                        Released Dec 2014 - EOL Feb 2020<br />
+                        Current Version 9.4.24
+                    </section>
+                    <section>
+                        <h2>Binary JSON data type</h2>
+                        <ul>
+                            <li>Even more useful! Possibly replace MongoDB.</li>
+                            <ul>
+                                <li>Benchmark PG vs Mongo - <a href="https://github.com/EnterpriseDB/pg_nosql_benchmark" target="_blank">https://github.com/EnterpriseDB/pg_nosql_benchmark</a></li>
+
+                            </ul>
+                            <li>Same data type validation as before</li>
+                            <li>Stored in format that does not require reparsing original text</li>
+                            <li>Allows indexing and more efficient storage</li>
+                            <li>New operators and functions for better interaction with JSON data</li>
+                            <li>Fields are de-dupped. If you need dupped fields in tact, use normal json type</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Binary JSON data type</h2>
+                        <ul>
+                            <li>Great blogpost with JSONB examples: <a href="http://blog.codeship.com/unleash-the-power-of-storing-json-in-postgres/" target="_blank">Unleash the Power of Storing JSON in Postgres</a></li>
+                        </ul>
+                       <pre><code data-trim>
+CREATE TABLE cards (
+  id integer NOT NULL,
+  board_id integer NOT NULL,
+  data jsonb
+);
+ 
+INSERT INTO cards VALUES (1, 1, '{"name": "Paint house", "tags": ["Improvements", "Office"], "finished": true}');
+
+SELECT data->>'name' AS name FROM cards;
+
+SELECT count(*) FROM cards WHERE data->>'finished' = 'true';
+
+Aggregate (cost=335.12..335.13 rows=1 width=0) (actual time=4.421..4.421 rows=1 loops=1) -> Seq Scan on cards (cost=0.00..335.00 rows=50 width=0) (actual time=0.016..3.961 rows=4938 loops=1) 
+    Filter: ((data ->> 'finished'::text) = 'true'::text) 
+    Rows Removed by Filter: 5062 
+Planning time: 0.071 ms 
+Execution time: 4.465 ms
+
+CREATE INDEX idxfinished ON cards ((data->>'finished'));
+
+Aggregate (cost=118.97..118.98 rows=1 width=0) (actual time=2.122..2.122 rows=1 loops=1) -> Bitmap Heap Scan on cards (cost=4.68..118.84 rows=50 width=0) (actual time=0.711..1.664 rows=4938 loops=1) 
+    Recheck Cond: ((data ->> 'finished'::text) = 'true'::text) 
+    Heap Blocks: exact=185 
+    -> Bitmap Index Scan on idxfinished (cost=0.00..4.66 rows=50 width=0) (actual time=0.671..0.671 rows=4938 loops=1) 
+        Index Cond: ((data ->> 'finished'::text) = 'true'::text) 
+Planning time: 0.084 ms 
+Execution time: 2.199 ms
+                        </code> </pre>
+
+                    </section>
+                    <section>
+                        <h2>Replication Slots</h2>
+                        <ul>
+                            <li>Allows primary servers to be aware of all replication state</li>
+                            <li>Primary keeps WAL in pg_xlogs (now pg_wal) for known replicas if they disconnect</li>
+                            <li>Previously had to either set wal_keep_segments high or have secondary WAL storage to avoid replica rebuild</li>
+                            <li>Ties in with upcoming logical replication features</li>
+                        </ul>
+
+                    </section>
+                    <section>
+                        <h2>Additional 9.4 Features</h2>
+                        <ul>
+                            <li>ALTER SYSTEM command to dynamically change postgresql.conf within the database</li>
+                            <li>Materialzed view refresh no longer blocks reads.</li>
+                            <ul>
+                                <li>Actually useful! Still not auto-refreshed</li>
+                            </ul>
+                            <li>Dynamic loading/unloading of Background Workers</li>
+                            <li>pg_prewarm</li>
+                            <ul>
+                                <li>Allows immediate loading of relation data during cluster start into shared_buffers to "warm" them up</li>
+                            </ul>
+                            <li>Logical decoding in WAL stream. First steps to native logical replication &amp; multi-master.</li>
+                            <li>Distinct output of Planning &amp; Execution time from EXPLAIN ANALYZE output</li>
+                        </ul>
+                    </section>
+                </section>
+                <!-- end of 9.4 -->
+
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <h2>Friendly Reminder</h2>
+                    <ul>
+                        <li>If you are running any version &lt;= 9.3, you are no longer receiving support!</li>
+                        <li>9.3 support ended Nov 2018</li>
+                        <li>9.4 support will end Feb 2020</li>
+                        <li>No security updates &amp; no data corruption fixes!</li>
+                        <li>If on pre-8.4, getting to new version now will make future upgrades much easier (pg_upgrade)</li>
+                        <li>We can help! - <a href="http://www.crunchydata.com" target="_blank">crunchydata.com</a></li>
+                    </ul>
+                </section>
+                <!-- end of friendly reminder -->
+
+
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <section>
+                        <h1>9.5 Features</h1>
+                        Released Jan 2016 - EOL Feb 2021<br />
+                        Current Version 9.5.19
+                    </section>
+
+                    <section>
+                        <h2>UPSERT</h2>
+                        <ul>
+                            <li>INSERT ... ON CONFLICT ...</li>
+                            <ul>
+                                <li>ON CONSTRAINT ... (better to name columns)</li>
+                                <li>DO NOTHING</li>
+                                <li>DO UPDATE SET ... [WHERE ...]</li>
+                            </ul>
+                            <li>"... optimistic variant of regular insertion that first does a pre-check for existing tuples and then attempts an insert."</li>
+                            <li>Not quite the same as MERGE. This is an actual upsert.</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Row Level Security</h2>
+                        <ul>
+                            <li>Control access to data by conditions on the values of that data</li>
+                            <li>Adds to already extensive privilege controls (database, schema, table, column)</li>
+                            <li>Superusers and object owners bypass RLS. Unless...</li>
+                            <li>New GUC - row_security (ON, OFF, FORCE)</li>
+                            <li>pg_dump sets row_securty to OFF (--enable-row-security)</li>
+                            <li>Multiple policies per table (Results are OR'ed)</li>
+                            <li>BYPASSRLS/NOBYPASSRLS - new role property to allow individual roles to bypass RLS</li>
+                            <li>Row level security shows up in the \d results</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>BRIN Indexes</h2>
+                        <ul>
+                            <li>Block Range Index / MinMax Index</li>
+                            <li>Stores only the bounds-per-heap-page vs B-tree method of one index entry for each value</li>
+                            <li>Configure how many heap pages contribute to index entry</li>
+                            <li>Significantly faster index creation, update &amp; smaller size</li>
+                            <li>Sometimes slower index searches than B-tree</li>
+                            <li>Works better with statically ordered data</li>
+                            <li>Really good explanation &amp; examples at <a href="http://pythonsweetness.tumblr.com/post/119568339102/block-range-brin-indexes-in-postgresql-9-5" target="_blank">python sweetness blog</a></li>
+
+                    </section>
+
+                    <section>
+                        <h2>Additional 9.5 Features</h2>
+                        <ul>
+                            <li>Sorting Speed Improvements (Abbreviated Keys)</li>
+                            <li>checkpoint_segments replaced by min_wal_size &amp; max_wal_size</li>
+                            <li>pg_rewind - no longer have to rebuild failed primary from scratch</li>
+                            <li>Add IF NOT EXISTS clause to CREATE INDEX, CREATE TABLE AS, CREATE SEQUENCE, and CREATE MATERIALIZED VIEW</li>
+                            <li>Additional GROUP BY options (GROUPING SETS, CUBE, ROLLUP)</li>
+                            <li>JSONB improvements</li>
+                            <ul>
+                                <li>jsonb_set() - allows in-place editing of JSONB data</li>
+                                <li>jsonb_pretty() - more human readable jsonb output</li>
+                                <li>Even more functions and operators. See Release Notes</li>
+                                <li><a href="https://mark.zealey.org/2016/01/08/how-we-tweaked-postgres-upsert-performance-to-be-2-3-faster-than-mongodb" target="_blank">How We Tweaked Postgres UPSERT Performance to be 2-3* Faster than MongoDB</a></li>
+                            </ul>
+                            <li>Foreign Table Inheritance - child tables on remote databases</li>
+                        </ul>
+                    </section>
+
+                </section>
+                <!-- end of 9.5 -->
+                
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <section>
+                        <h1>9.6 Features</h1>
+                        Released Jan 2016 - EOL Nov 2021<br />
+                        Current Version 9.6.15
+                    </section>
+
+                    <section>
+                        <h2>Introduction of Parallel Queries</h2>
+                        <ul>
+                            <li>Parallelization supported for sequential scan, hash joins, nested loops and some aggregates</li>
+                            <li>Only parallelizes on driving table</li>
+                            <li>Not enabled by default</li>
+                            <li>Highly recommend more modern version (11+) if parallel is desired</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Improved Vacuuming</h2>
+                        <ul>
+                            <li>Avoids re-vacuuming pages containing only frozen tuples</li>
+                            <li><b><i>Significantly</i></b> reduces IO and time required for vacuuming tables that don't change much</li>
+                            <li>Vacuum progress view added - <a href="https://www.postgresql.org/docs/9.6/progress-reporting.html#PG-STAT-PROGRESS-VACUUM-VIEW" target="_blank">pg_stat_progress_vacuum</a>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Improved pg_stat_activity For Locks</h2>
+                        <ul>
+                            <li>Original <b><i>waiting</i></b> column has been split into <b><i>wait_event-type</i></b> and <b><i>wait_event</i></b></li>
+                            <li>Much more fine-grained detail than the previous, simple boolean value. Better answers "Why is this waiting?"</li>
+                            <li>May need to adjust monitoring to account for new columns and values</li>
+                            <li>See documentation for all new value meanings - <a href="https://www.postgresql.org/docs/9.6/monitoring-stats.html#PG-STAT-ACTIVITY-VIEW" target="_blank">https://www.postgresql.org/docs/9.6/monitoring-stats.html#PG-STAT-ACTIVITY-VIEW</a></li>
+                        </ul>
+                    </section>
+                    
+                    <section>
+                        <h2>Support Multiple Synchronous Standbys</h2>
+                        <ul id="li30" style="font-size:25px;">
+                            <li>Previously, you could configure multiple synchronous standbys, but only one was ever guaranteed to be synchronous. Evaluated in order and first one hit, wins</li>
+                            <li>Can now specify a minimum number of standbys that must report back as in sync</li>
+
+                           <pre><code data-trim>
+                            synchronous_standby_names = '2 (s1, s2, s3)'
+                           </code></pre>
+
+                            <li>Still evaluates in given order, but number at beginning specifies the minimum</li>
+                            <li>Asynchronous standbys still possible at same time, just leave them out of list</li>
+                            <li>Version 10 added ability to desginate ANY listed replicas to create quorum. FIRST mode is old priority based method.</li>
+                           <pre><code data-trim>
+                            synchronous_standby_names = 'FIRST 2 (s1, s2, s3)'
+                            synchronous_standby_names = 'ANY 2 (s1, s2, s3)'
+                           </code></pre>
+
+                            <li>Documentation - <a href="https://www.postgresql.org/docs/10/runtime-config-replication.html#GUC-SYNCHRONOUS-STANDBY-NAMES" target="_blank">synchronous_standby_names</a> &amp; <a href="https://www.postgresql.org/docs/10/warm-standby.html#SYNCHRONOUS-REPLICATION-MULTIPLE-STANDBYS" target="_blank">Multiple Synchronous Standbys</a>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Additional 9.6 Features</h2>
+                        <ul>
+                            <li>Much improved sorting performance</li>
+                            <li>Automatic timeout of idle in transaction session - <a href="https://www.postgresql.org/docs/9.6/runtime-config-client.html#GUC-IDLE-IN-TRANSACTION-SESSION-TIMEOUT" target="_blank">idle_in_transaction_session_timeout</a></li>
+                            <li>Added <b>--slot</b> for pg_basebackup to allow specifying a desired replication slot so future replica can pick up where the basebackup left off</li>
+                            <li>Allow old MVCC snapshots to be invalidated after a configurable timeout to help reduce bloat buildup caused by long running transactions. See <a href="https://www.postgresql.org/docs/9.6/runtime-config-resource.html#GUC-OLD-SNAPSHOT-THRESHOLD" target="_blank">old_snapshot_threshold</a> setting.</li>
+                            <li>Add pg_config system view to allow values of pg_config CLI tool to be visible inside database. <a href="https://www.postgresql.org/docs/9.6/view-pg-config.html" target="_blank">pg_config</a></li>
+                            <li>Support multiple -c &amp; -f options for psql</li>
+                            <li>%n log_line_prefix value for unix epoch</li>
+                        </ul>
+                    </section>
+
+                </section>
+                <!-- end of 9.6 -->
+
+
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <section>
+                        <h1>10 Features</h1>
+                        Released Oct 2017 - EOL Nov 2022<br />
+                        Current Version 10.10 
+                    </section>
+
+                    <section>
+                        <h2>New version numbering</h2>
+                        <ul>
+                            <li>Changed from 3 number version (x.x.x) to 2 number version (x.x)</li>
+                            <ul>
+                                <li>9.6.15 to 10.10</li>
+                            </ul>
+                            <li>Previous first number was arbitrary and major version was considered first.second with third being patch</li>
+                            <li>Now first number is always major version. Second number is always patch release.</i>
+                            <li>Greatly simplified clarity on what version numbers mean</li>
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Native Partitioning</h2>
+                        <ul>
+                            <li>Added language features for declarative partitioning methods</li>
+                            <li>Limited, introductory feature support. Recommend going to 11 or 12 if you want to use this</li>
+                            <li>RANGE and LIST supported</li>
+                            <li>Manual creation of child tables</li>
+                            <ul>
+                                <li>More work but allows flexability of direct child table access if needed</li>
+                                <li><a href="https://github.com/pgpartman/pg_partman" target="_blank">pg_partman</a> - automated child table creation for time/integer based partitioning</li>
+                            </ul>
+                            <li>Interactive Demo Available - <a href="https://learn.crunchydata.com/pg-administration/courses/postgresql-features/native-partitioning/" target="_blank">learn.crunchydata.com -&gt; PostgreSQL Admin -&gt; PG Features -&gt; Native Partitioning</a>
+                    <pre><code data-trim>
+CREATE TABLE measurement (
+    city_id         int not null,
+    logdate         date not null,
+    peaktemp        int,
+    unitsales       int
+) PARTITION BY RANGE (logdate);                   
+                    </code></pre>
+
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Native Partitioning</h2>
+
+                        <pre><code data-trim>
+CREATE TABLE measurement_y2006m02 PARTITION OF measurement
+    FOR VALUES FROM ('2006-02-01') TO ('2006-03-01');
+
+CREATE TABLE measurement_y2006m03 PARTITION OF measurement
+    FOR VALUES FROM ('2006-03-01') TO ('2006-04-01');
+                        </code></pre>
+
+
+                       <pre><code data-trim>
+keith@keith=# \d+ measurement
+                                 Table "public.measurement"
+  Column   |  Type   | Collation | Nullable | Default | Storage | Stats target | Description 
+-----------+---------+-----------+----------+---------+---------+--------------+-------------
+ city_id   | integer |           | not null |         | plain   |              | 
+ logdate   | date    |           | not null |         | plain   |              | 
+ peaktemp  | integer |           |          |         | plain   |              | 
+ unitsales | integer |           |          |         | plain   |              | 
+Partition key: RANGE (logdate)
+Partitions: measurement_y2006m02 FOR VALUES FROM ('2006-02-01') TO ('2006-03-01'),
+            measurement_y2006m03 FOR VALUES FROM ('2006-03-01') TO ('2006-04-01')
+                       </code></pre>
+
+                    </section>
+
+
+                    <section>
+                        <h2>Logical Replication</h2>
+                        <ul>
+                            <li>Per-object replication vs instance-based replication (streaming) - <a href="https://www.postgresql.org/docs/10/logical-replication.html" target="_blank">https://www.postgresql.org/docs/10/logical-replication.html</a></li>
+                            <li>Uses same, WAL based replication method as streaming</li>
+                                <pre><code data-trim>
+wal_level = logical
+                               </code></pre>
+                            <li>Managed via a PUBLICATION of one or more tables that are then read by a SUBSCRIPTION on the destination</li>
+                            <li>Unlike streaming replication, Subscriber is allowed to write to database</li>
+                            <li>Not really bi-directional.</li>
+                            <li>No automatic conflict resolution.</li> 
+                            <li>Interactive Demo Available - <a href="https://learn.crunchydata.com/pg-administration/courses/postgresql-features/logical-replication/" target="_blank">learn.crunchydata.com -&gt; PostgreSQL Admin -&gt; PG Features -&gt; Logical Replication</a>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Naming Changes</h2>
+                        <ul>
+                            <li>Changed folder names in data directory</li>
+                            <ul>
+                                <li>Folders named "log" aren't critical right?</li>
+                                <li><b>pg_xlog</b> to <b>pg_wal</b></li>
+                                <li><b>pg_clog</b> to <b>pg_xact</b></li>
+                            </ul>
+                            <li>Object &amp; tool name changes</li>
+                            <ul>
+                                <li><b>pg_switch_xlog()</b> to <b>pg_switch_wal()</b></li>
+                                <li><b>pg_receivexlog</b> to <b>pg_receivewal</b></li>
+                                <li><b>--xlogdir</b> to <b>--waldir</b> for above binary</li>
+
+                            </ul>
+                            <li>WAL related objects that had the word <b><i>location</i></b> in them changed to <b><i>lsn</i></b> (log sequence number)</li>
+                            <ul>
+                                <li>Ex. columns in <b>pg_stat_replication</b> system catalog. <b>write_location</b> to <b>write_lsn</b></li>
+                            </ul>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>SCRAM Authentication</h2>
+                        <ul>
+                            <li>New <a href="https://www.postgresql.org/docs/10/auth-methods.html#AUTH-PASSWORD" target="_blank">password authentication</a> method to modernize current md5/password methods</li>
+                            <li>Challenge-response scheme that prevents password sniffing on untrusted connections</li>
+                            <li>Supports storing passwords on the server in a cryptographically hashed form that is thought to be secure</li>
+                            <li>Most secure of the currently provided methods, but may not be supported by some client libraries</li>
+                            <li>Control password encryption storage via the <a href="https://www.postgresql.org/docs/10/sql-createrole.html" target="_blank">CREATE</a>/<a href="https://www.postgresql.org/docs/10/sql-alterrole.html" target="_blank">ALTER</a> role commands</li>
+                            <li>Control authenication via the pg_hba.conf <a href="https://www.postgresql.org/docs/10/auth-pg-hba-conf.html" target="_blank"><b><i>auth-method</i></b></a></li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Default Roles</h2>
+                        <ul>
+                            <li>First round of adding <a href="https://www.postgresql.org/docs/10/default-roles.html" target="_blank">default roles</a> to allow easier/more secure administrative functionality</li>
+                            <li>Focused on monitoring</li>
+                            <ul>
+                                <li><b>pg_read_all_settings</b> - read all config variables, even superuser only ones</li>
+                                <li><b>pg_read_all_stats</b> - read all pg_stat_* views and use stat related extensions, even superuser only ones</li>
+                                <li><b>pg_stat_scan_tables</b> - allow execution of monitoring function that may take ACCESS SHARE locks</li>
+                                <li><b>pg_monitor</b> - member of all above roles. read/execute various monitoring related views and functions</li>
+                            </ul>
+                        </ul>
+                    </section>
+
+                    <section data-background="css/theme/crunchy_white_bg.png">
+                        <h2>IDENTITY columns</h2>
+                        <ul>
+                            <li>Properly follow SQL standard for managing table sequences</li>
+                            <li>Better handling of sequence permissions when tied to a table</li>
+                            <li>Better enforcement of only allowing sequence use for column values</li>
+                            <li>Easier to remove sequences from a table</li>
+                            <li>Only works when entering data through the parent table in partitioning</li>
+                            <li>More info on <a href="https://blog.2ndquadrant.com/postgresql-10-identity-columns/" target="_blank">2ndQuadrant Blog</a>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Additional 10 Features</h2>
+                        <ul>
+                            <li>Define extended statistics. See <a href="https://www.postgresql.org/docs/current/planner-stats.html#PLANNER-STATS-EXTENDED">Extended Statistics</a> section of docs</a>
+                            <li>Improved query parallelism (still recommend going to latest major release if this is important)</li>
+                            <ul>
+                                <li>btree index scans, bitmap heap scans, merge joins, non-correlated subqueries</li>
+                                <li>Added <a href="https://www.postgresql.org/docs/10/runtime-config-resource.html#GUC-MAX-PARALLEL-WORKERS" target="_blank">max_parallel_workers</a> to allow limiting worker processes dedicated to parallelism</li>
+                            </ul>
+                            <li>pg_basebackup --wal-method=stream (-Xs) is now default</li>
+                            <li>Hash indexes are now crash-safe &amp; replicated</li>
+                            <li>Removed ability to store unencrypted passwords</li>
+                            <li>Background processes are now shown in pg_stat_activity</i>
+                            <li>SSL config can be updated during reload instead of requiring restart</li>
+                            <li>Better full text search for json &amp; jsonb</li>
+
+                        </ul>
+                    </section>
+
+                </section>
+                <!-- end of 10 -->
+
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <section>
+                        <h1>11 Features</h1>
+                        Released Oct 2018 - EOL Nov 2023<br />
+                        Current Version 11.5
+                    </section>
+
+                    <section>
+                        <h2>Stored Procedures</h2>
+                        <ul>
+                            <li>Previously all "procedures" in PG had only ever been "functions". Single transaction thread for entire execution</li>
+                            <li>New CREATE PROCEDURE creation syntax</li>
+                            <li>Uses CALL syntax vs SELECT</li>
+                            <pre><code data-trim>
+CALL partman.partition_data_proc('public.mytable');
+                            </code></pre>
+                            <li>Allows distinct COMMIT blocks within a single procedure call</li>
+                            <li>Does not return values</li>
+                            <li>Cannot (yet) return multiple result sets</li>
+                            <li>Limited nested procedure calling</li>
+                            <li>Cannot call procedures from within functions</li>
+
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Improved Partitioning</h2>
+                        <ul>
+                            <li>New HASH partitioning format in addition to RANGE and LIST</li>
+                            <li>Allow setting primary keys, foreign keys, indexes and triggers on parent table to be inherited to children</li>
+                            <ul>
+                                <li>Primary key must include partition key</li>
+                                <li>Foreign keys FROM partition sets but not TO them</li>
+                            </ul>
+                            <li>Added DEFAULT partition to catch data that doesn't fit into defined child</li>
+                            <ul>
+                                <li>Beware heavy performance penalty when adding children if default has a lot of data</li>
+                            </ul>
+                            <li>Improved SELECT performance using partition pruning methods. MUCH better in 12!</li>
+                        </ul>
+                    </section>
+    
+                    <section>
+                        <h2>Additional 11 Features</h2>
+                        <ul>
+                            <li>Just-in-Time (JIT) compilation for some SQL code speeding up expression evaluation</li>
+                            <li>Even more improved parallelism</li>
+                            <ul>
+                                <li>CREATE INDEX (B-tree), CREATE TABLE AS, CREATE MATERIALIZED VIEW, some UNIONS, better hash joins and seq scans</li>
+                            </ul>
+                            <li>Covering Indexes</li>
+                            <ul>
+                                <li>Include non-key columns in index definition to improve chance of an index-only scan</li>
+                                <li><a href="https://paquier.xyz/postgresql-2/postgres-11-covering-indexes/" target="_blank">Great blog post</a> by Michael Paquier on this</a></li>
+                            </ul>
+                            <li>Improved upon 9.6 VACUUM improvements (avoid uneeded index scans)</li>
+                            <li>More new default roles for file system access (pg_read_server_files, pg_write_server_files, and pg_execute_server_program)</li>
+                            <li>Option to allow pg_basebackup to create replication slot at runtime</li>
+                        </ul>
+                    </section>
+
+                </section>
+                <!-- end of 11 -->
+
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <section>
+                        <h1>12 Features</h1>
+                        Released Oct 2019 - EOL Nov 2024<br />
+                        Current Version 12.0
+                    </section>
+
+                    <section>
+                        <h2>Removal of recovery.conf</h2>
+                        <ul>
+                            <li>Before 12, existence of recovery.conf file told PG that it should run in recovery mode. This has been replaced with two possible files:</li>
+                            <ul>
+                                <li><b>standby.signal</b> - server will enter recovery and continue trying to replay additional WAL forever (normal replica)</li>
+                                <li><b>recovery.signal</b> - used for targetted recovery mode which ends when all archived WAL is replayed or recovery target is reached</li>
+                               <li>If both file exist, standby.signal takes precendence</li>
+                               <li>Files are empty and only their existence is used to control recovery</li>
+                            </ul>
+                            <li>Configuration options that went into recovery.conf have been moved to main postgresql.conf file</li>
+                            <li><a href="https://www.postgresql.org/docs/12/runtime-config-wal.html#RUNTIME-CONFIG-WAL-ARCHIVE-RECOVERY" target="_blank">Archive &amp; Recovery Target Command Reference</a></li>
+
+                        </ul>
+                    </section>
+                    <section>
+                        <h2>Performance Improvements</h2>
+                        <ul>
+                            <li>B-tree read/write optimization</li>
+                            <li>Better partition pruning can tremendously improve read performance for partition sets</li>
+                            <li>ATTACH partition without locking entire partition set</li>
+                            <li>Automatic (but overridable) inlining of common table expressions (CTEs)</li>
+                            <li>Multi-column most-common-value (MCV) stats to improve upon new feature added in PG10</li>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Generated columns</h2>
+                        <ul>
+                            <li>Special columns whose values are always computed from other columns</li>
+                            <li>Previously required triggers to accomplish this</li>
+                            <li>Currently only "stored" generated column is supported. Computed when row is written and occupies storage like normal column</li>
+                            <li>Other known type, "virtal", is computed when column is read but not yet supported in PG</li>
+                            <li>Additional caveats for usage in documentation - <a href="https://www.postgresql.org/docs/12/ddl-generated-columns.html" target="_blank">https://www.postgresql.org/docs/12/ddl-generated-columns.html</a></li>
+                        </ul>
+
+                    </section>
+
+                    <section>
+                        <h2>Links to documentation in psql</h2>
+                        <ul>
+                            <li>The <b>\h</b> command in psql now provides direct links to relevant documentation for the given command</li>
+                            <li>Tied to psql client version, not server you are connected to</li>
+                            <pre><code data-trim>
+=# \h DROP PROCEDURE
+Command:     DROP PROCEDURE
+Description: remove a procedure
+Syntax:
+DROP PROCEDURE [ IF EXISTS ] name [ ( [ [ argmode ] [ argname ] argtype [, ...] ] ) ] [, ...]
+    [ CASCADE | RESTRICT ]
+
+URL: https://www.postgresql.org/docs/12/sql-dropprocedure.html
+                            </code></pre>
+                        </ul>
+                    </section>
+
+                    <section>
+                        <h2>Additional 12 Features</h2>
+                        <ul>
+                            <li>REINDEX CONCURRENTLY</li>
+                            <li>Remove the special behavior of oid columns</li>
+                            <li>Promote standby within database with new function <a href="https://www.postgresql.org/docs/12/functions-admin.html#FUNCTIONS-RECOVERY-CONTROL-TABLE" target="_blank">pg_promote()</a></li>
+                            <li>VACUUM ... SKIP LOCKED</li>
+                            <li>Support for <a href="https://www.postgresql.org/docs/current/functions-json.html#FUNCTIONS-SQLJSON-PATH" target="_blank">SQL/JSON path</a> language</li>
+                            <li>Enable/disable pg_checksums on an offline cluster. Previously could only be done during initialization</li>
+                            
+                        </ul>
+
+                    </section>
+
+                </section>
+                <!-- end of 12 -->
+
+                <section data-background="css/theme/crunchy_white_bg.png">
+                    <section>
+                        <h1>13 Features</h1>
+                        Release Est Oct 2020<br />
+                    </section>
+
+                    <section>
+                        <h2>Upcoming 13 Features</h2>
+                        <ul>
+                            <li>?????????????</li>
+                        </ul>
+                    </section>
+
+                </section>
+                <!-- end of 13 -->
+
 
                  <section data-background="css/theme/crunchy_white_bg.png">
-                     <h1>Go Make A Presentation!</h1>
+                     <h1>Thank you!</h1>
                     <ul>
+                        <li>Talk about Hacking the PostgreSQL Planner by Melanie Plageman up next in this room!</li>
                         <li>PostgreSQL Home Page - <a href="http://www.postgresql.org" target="_blank">postgresql.org</a></li>
                         <li>Planet PostgreSQL Community News Feed - <a href="http://planet.postgresql.org" target="_blank">planet.postgresql.org</a></li>
                         <li>PostgreSQL Extension Network - <a href="http://pgxn.org" target="_blank">pgxn.org</a></li>
@@ -96,6 +1508,7 @@
                     </ul>
 
                  </section>
+
 			</div>
 		</div>
 
